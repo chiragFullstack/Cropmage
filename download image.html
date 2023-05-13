@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Download Image</title>
+</head>
+<body>
+  <img src="gill1.jpg" alt="Image" style="height:300px; width:350px;">
+  <button id="downloadButton">Download Image</button>
+  <script>
+    const downloadButton = document.getElementById('downloadButton');
+    const image = document.querySelector('img');
+
+    downloadButton.addEventListener('click', () => {
+      const link = document.createElement('a');
+      link.download = 'image.jpg';
+      link.href = image.src;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+  </script>
+</body>
+</html>
