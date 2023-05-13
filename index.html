@@ -75,7 +75,13 @@ label.cabinet input.file{
 		a:active {
 			color: blue;
 		}
-
+		#loader{
+			border:0px solid red;
+			position:absolute;
+			top:100px;
+			left:110px;
+			display: none;
+		}
 
 </style>
 
@@ -94,6 +100,9 @@ label.cabinet input.file{
 										<input type="file" class="item-img file center-block" name="file_photo"/>
 									</label>
 									<a href="" id="linkToDownload" class="btn-Download" download>Download Image</a>
+									
+									<img src="loader.gif" id="loader"/>
+									
 								</div>
 							</div>
 </div>
@@ -109,7 +118,12 @@ label.cabinet input.file{
 							<div class="modal-body">
 				            <div id="upload-demo" class="center-block"></div>
 				      </div>
-							 <div class="modal-footer">
+					<div class="modal-footer">
+						<select id="size" class="form-control	">
+							<option value="426-240">426pxX240px</option>
+							<option value="640-360">640pxX360px</option>
+							<option value="854-480">854pxX480px</option>
+						</select><br/>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="button" id="cropImageBtn" class="btn btn-primary">Crop</button>
       </div>
@@ -121,59 +135,6 @@ label.cabinet input.file{
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
 <script src='https://foliotek.github.io/Croppie/croppie.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
-<script>
-	$(".gambar").attr("src", "https://user.gadjian.com/static/images/personnel_boy.png");
-						var $uploadCrop,
-						tempFilename,
-						rawImg,
-						imageId;
-						function readFile(input) {
-				 			if (input.files && input.files[0]) {
-				              var reader = new FileReader();
-					            reader.onload = function (e) {
-									$('.upload-demo').addClass('ready');
-									$('#cropImagePop').modal('show');
-						            rawImg = e.target.result;
-					            }
-					            reader.readAsDataURL(input.files[0]);
-					        }
-					        else {
-						        swal("Sorry - you're browser doesn't support the FileReader API");
-						    }
-						}
-
-						$uploadCrop = $('#upload-demo').croppie({
-							viewport: {
-								width: 160,
-								height: 210,
-							},
-							enforceBoundary: false,
-							enableExif: true
-						});
-						$('#cropImagePop').on('shown.bs.modal', function(){
-							// alert('Shown pop');
-							$uploadCrop.croppie('bind', {
-				        		url: rawImg
-				        	}).then(function(){
-				        		console.log('jQuery bind complete');
-				        	});
-						});
-
-						$('.item-img').on('change', function () { imageId = $(this).data('id'); tempFilename = $(this).val();
-					$('#cancelCropBtn').data('id', imageId); readFile(this); });
-						$('#cropImageBtn').on('click', function (ev) {
-							$uploadCrop.croppie('result', {
-								type: 'base64',
-								format: 'jpeg',
-								size: {width:160, height:210}
-							}).then(function (resp) {
-								console.log(resp);
-								$('#item-img-output').attr('src', resp);
-								$('#cropImagePop').modal('hide');
-								$('#linkToDownload').attr('href', resp);
-							});
-						});
-				// End upload preview image
-</script>
+<script src="ownScript.js"></script>
 </body>
 </html>
